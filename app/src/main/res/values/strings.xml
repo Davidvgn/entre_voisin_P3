@@ -3,4 +3,7 @@
     <string name="tab_neighbour_title">My neighbours</string>
     <string name="tab_favorites_title">Favorites</string>
     <string name="activity_new_neighbour">New neighbour</string>
+    <string name="activity_add_to_favorite">Add to favorite</string>
+    <string name="content_desc_user_avatar">User\'s avatar</string>
+    <string name="about_me_title">À propos de moi</string>
 </resources>

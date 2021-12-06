@@ -1,20 +1,25 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
+import com.openclassrooms.entrevoisins.utils.ItemClickSupport;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -52,6 +57,7 @@ public class NeighbourFragment extends Fragment {
         mRecyclerView = (RecyclerView) view;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        this.configureOnClickRecyclerView();
         return view;
     }
 
@@ -73,12 +79,35 @@ public class NeighbourFragment extends Fragment {
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
+
     }
 
     @Override
     public void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
+    }
+
+    private void configureOnClickRecyclerView(){
+        ItemClickSupport.addTo(mRecyclerView, R.layout.fragment_neighbour_list)
+                .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                        String avatar = mNeighbours.get(position).getAvatarUrl();
+                        String name = mNeighbours.get(position).getName();
+                        String address = mNeighbours.get(position).getAddress();
+                        String phone = mNeighbours.get(position).getPhoneNumber();
+                        String aboutMe = mNeighbours.get(position).getAboutMe();
+                        Intent myIntent = new Intent(getActivity(), AddToFavoriteActivity.class);
+                        myIntent.putExtra("favorite_avatar", avatar);
+                        myIntent.putExtra("favorite_name", name);
+                        myIntent.putExtra("favorite_adress", address);
+                        myIntent.putExtra("favorite_phone", phone);
+                        myIntent.putExtra("favorite_aboutMe", aboutMe);
+                        startActivity(myIntent);
+//                        Toast.makeText(getContext(), "You click user : "+ name, Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     /**
