@@ -2,7 +2,9 @@ package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -24,8 +26,6 @@ import butterknife.ButterKnife;
 public class AddToFavoriteActivity extends AppCompatActivity {
     @BindView(R.id.favorite_name)
     TextView favoriteName;
-    private Instant Picasso;
-
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -33,14 +33,6 @@ public class AddToFavoriteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_to_favorite);
         ButterKnife.bind(this);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("");
-
-
-        //action bar transparent
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
-
-
 
         Intent intent = getIntent();
         String avatar = intent.getStringExtra("favorite_avatar");
@@ -55,6 +47,7 @@ public class AddToFavoriteActivity extends AppCompatActivity {
         TextView mFavoritePhone = findViewById(R.id.favorite_phone);
         TextView mFavoriteAboutMe = findViewById(R.id.favorite_aboutMe);
         TextView mFavoriteHeaderName = findViewById(R.id.favorite_header_name);
+        Toolbar mToolbar = findViewById(R.id.fav_toolbar);
 
         Glide.with(this).asBitmap().load(avatar).into(mFavoriteAvatar);
         mFavoriteName.setText(name);
@@ -62,7 +55,9 @@ public class AddToFavoriteActivity extends AppCompatActivity {
         mFavoritePhone.setText(phone);
         mFavoriteAboutMe.setText(aboutMe);
         mFavoriteHeaderName.setText(name);
-
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle(null);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
 
