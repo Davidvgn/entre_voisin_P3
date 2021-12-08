@@ -45,15 +45,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:layout_marginLeft="4dp"
+                    android:layout_marginStart="4dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginEnd="20dp"
                     android:layout_marginBottom="20dp"
                     android:gravity="center_vertical"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
                     android:textColor="@color/colorWhite"
                     android:textSize="32sp" />
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fav_add_neighbour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:layout_margin="16dp"
+                    app:backgroundTint="@color/colorWhite"
+                    app:srcCompat="@drawable/ic_star_border_white_24dp" />
+
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
@@ -138,5 +147,7 @@
                 android:paddingEnd="12dp" />
 
         </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </ScrollView>
