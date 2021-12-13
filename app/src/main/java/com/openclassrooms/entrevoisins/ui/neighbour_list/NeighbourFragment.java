@@ -8,11 +8,9 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
@@ -98,12 +96,12 @@ public class NeighbourFragment extends Fragment {
                         String address = mNeighbours.get(position).getAddress();
                         String phone = mNeighbours.get(position).getPhoneNumber();
                         String aboutMe = mNeighbours.get(position).getAboutMe();
-                        Intent myIntent = new Intent(getActivity(), AddToFavoriteActivity.class);
-                        myIntent.putExtra("favorite_avatar", avatar);
-                        myIntent.putExtra("favorite_name", name);
-                        myIntent.putExtra("favorite_adress", address);
-                        myIntent.putExtra("favorite_phone", phone);
-                        myIntent.putExtra("favorite_aboutMe", aboutMe);
+                        Intent myIntent = new Intent(getActivity(), NeighbourDetailsActivity.class);
+                        myIntent.putExtra("neighbour_detail_iv_avatar", avatar);
+                        myIntent.putExtra("neighbour_detail_tv_name", name);
+                        myIntent.putExtra("neighbour_detail_tv_address", address);
+                        myIntent.putExtra("neighbour_detail_tv_phone", phone);
+                        myIntent.putExtra("neighbour_detail_tv_aboutMe", aboutMe);
                         startActivity(myIntent);
 //                        Toast.makeText(getContext(), "You click user : "+ name, Toast.LENGTH_SHORT).show();
                     }
