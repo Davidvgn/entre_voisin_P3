@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ScrollingActivity">
+    tools:context=".ui.neighbour_list.NeighbourDetailsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
@@ -46,22 +46,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context=".ScrollingActivity"
+        tools:context=".ui.neighbour_list.ScrollingActivity"
         tools:showIn="@layout/neighbour_detail_activity">
 
-        <!-- TODO David utiliser ConstraintLayout -->
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="@color/colorBackground">
+
 
             <TextView
                 android:id="@+id/neighbour_detail_tv_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/neighbour_detail_tv_address"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
                 android:layout_marginRight="16dp"
+                android:layout_marginTop="32dp"
                 android:background="@color/colorWhite"
                 android:gravity="center_vertical"
                 android:paddingStart="16dp"
@@ -70,73 +74,87 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/favorite_address"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginLeft="20dp"
+                android:id="@+id/neighbour_detail_tv_address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
-                android:layout_marginRight="20dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/neighbour_detail_tv_name"
+                app:layout_constraintBottom_toTopOf="@+id/neighbour_detail_tv_phone"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:padding="16dp"
                 android:background="@color/colorWhite"
-                android:drawablePadding="20dp"
+                android:drawablePadding="16dp"
                 android:gravity="center_vertical"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
                 app:drawableStartCompat="@drawable/ic_baseline_location_on_24" />
 
             <TextView
-                android:id="@+id/favorite_phone"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:id="@+id/neighbour_detail_tv_phone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/neighbour_detail_tv_address"
+                app:layout_constraintBottom_toTopOf="@+id/neighbour_detail_tv_network"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
                 android:background="@color/colorWhite"
-                android:drawablePadding="20dp"
+                android:drawablePadding="16dp"
                 android:gravity="center_vertical"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
+                android:padding="16dp"
                 app:drawableStartCompat="@drawable/ic_baseline_local_phone_24" />
 
 
             <TextView
-                android:id="@+id/favorite_network"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:id="@+id/neighbour_detail_tv_network"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/neighbour_detail_tv_name"
+                app:layout_constraintBottom_toTopOf="@+id/neighbour_detail_tv_aboutMeTitle"                android:layout_marginTop="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:padding="16dp"
                 android:background="@color/colorWhite"
-                android:drawablePadding="20dp"
+                android:drawablePadding="16dp"
                 android:gravity="center_vertical"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
                 app:drawableStartCompat="@drawable/ic_baseline_language_24" />
 
             <TextView
-                android:id="@+id/favorite_aboutMeTitle"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginRight="20dp"
+                android:id="@+id/neighbour_detail_tv_aboutMeTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/neighbour_detail_tv_network"
+                app:layout_constraintBottom_toTopOf="@+id/neighbour_detail_tv_aboutMe"                android:layout_marginTop="32dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
                 android:background="@color/colorWhite"
                 android:gravity="center_vertical"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
+                android:padding="16dp"
                 android:text="@string/about_me_title"
                 android:textColor="@color/colorBlack"
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/favorite_aboutMe"
-                android:layout_width="match_parent"
-                android:layout_height="169dp"
-                android:layout_marginLeft="20dp"
+                android:id="@+id/neighbour_detail_tv_aboutMe"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/neighbour_detail_tv_aboutMeTitle"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
+                android:padding="16dp"
                 android:layout_marginTop="1dp"
-                android:layout_marginRight="20dp"
                 android:background="@color/colorWhite"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp" />
+                />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
 
