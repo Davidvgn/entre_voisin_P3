@@ -17,17 +17,19 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.databinding.NeighbourDetailActivityBinding;
+
 
 public class NeighbourDetailsActivity extends AppCompatActivity {
 
     private NeighbourDetailActivityBinding binding;
-
-
+    private boolean isButtonClicked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         binding = NeighbourDetailActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -64,19 +66,30 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Ajouté à vos favoris", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if (isButtonClicked == false) {
+                    Snackbar.make(view, "Ajouté à vos favoris", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                } else {
+                    Snackbar.make(view, "Supprimé de vos favoris", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+                if (view.getId() == R.id.neighbour_detail_fab_add_favorite) {
+                    isButtonClicked = !isButtonClicked;
+                    fab.setImageResource(isButtonClicked ? R.drawable.ic_star_yellow_24dp : R.drawable.ic_star_border_white_24dp);
+                }
             }
         });
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home : {
+            case android.R.id.home: {
                 finish();
                 return true;
             }
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

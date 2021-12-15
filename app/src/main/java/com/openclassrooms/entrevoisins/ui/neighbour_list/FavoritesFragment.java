@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
@@ -25,27 +26,29 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.List;
 
 
-public class NeighbourFragment extends Fragment {
+public class FavoritesFragment extends Fragment {
 
     private NeighbourApiService mApiService;
     private List<Neighbour> mNeighbours;
     private RecyclerView mRecyclerView;
 
+    private Neighbour test;
+
 
     /**
      * Create and return a new instance
-     * @return @{@link NeighbourFragment}
+     * @return @{@link FavoritesFragment}
      */
-    public static NeighbourFragment newInstance() {
-        NeighbourFragment fragment = new NeighbourFragment();
+    public static FavoritesFragment newInstance() {
+        FavoritesFragment fragment = new FavoritesFragment();
         return fragment;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mApiService = DI.getNeighbourApiService();
-    }
+//    @Override
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        mApiService = DI.getNeighbourApiService();
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,9 +66,11 @@ public class NeighbourFragment extends Fragment {
      * Init the List of neighbours
      */
     private void initList() {
-        mNeighbours = mApiService.getNeighbours();
-        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
+//        mNeighbours = mApiService.getNeighbours();
+//        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
     }
+
+
 
     @Override
     public void onResume() {
@@ -96,7 +101,6 @@ public class NeighbourFragment extends Fragment {
                         String address = mNeighbours.get(position).getAddress();
                         String phone = mNeighbours.get(position).getPhoneNumber();
                         String aboutMe = mNeighbours.get(position).getAboutMe();
-
                         Intent myIntent = new Intent(getActivity(), NeighbourDetailsActivity.class);
                         myIntent.putExtra("neighbour_detail_iv_avatar", avatar);
                         myIntent.putExtra("neighbour_detail_tv_name", name);
@@ -104,6 +108,7 @@ public class NeighbourFragment extends Fragment {
                         myIntent.putExtra("neighbour_detail_tv_phone", phone);
                         myIntent.putExtra("neighbour_detail_tv_aboutMe", aboutMe);
                         startActivity(myIntent);
+//                        Toast.makeText(getContext(), "You click user : "+ name, Toast.LENGTH_SHORT).show();
                     }
                 });
     }

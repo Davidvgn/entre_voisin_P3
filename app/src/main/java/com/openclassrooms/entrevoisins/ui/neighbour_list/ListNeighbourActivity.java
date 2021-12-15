@@ -29,7 +29,6 @@ public class ListNeighbourActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_neighbour);
         ButterKnife.bind(this);
-
         setSupportActionBar(mToolbar);
         mPagerAdapter = new ListNeighbourPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mPagerAdapter);
@@ -42,6 +41,7 @@ public class ListNeighbourActivity extends AppCompatActivity {
     void addNeighbour() {
         AddNeighbourActivity.navigate(this);
     }
+
 
 
 }
