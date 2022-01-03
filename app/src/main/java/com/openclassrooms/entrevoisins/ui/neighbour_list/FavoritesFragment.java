@@ -32,8 +32,6 @@ public class FavoritesFragment extends Fragment {
     private List<Neighbour> mNeighbours;
     private RecyclerView mRecyclerView;
 
-    private Neighbour test;
-
 
     /**
      * Create and return a new instance
@@ -44,11 +42,11 @@ public class FavoritesFragment extends Fragment {
         return fragment;
     }
 
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        mApiService = DI.getNeighbourApiService();
-//    }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mApiService = DI.getNeighbourApiService();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,8 +64,8 @@ public class FavoritesFragment extends Fragment {
      * Init the List of neighbours
      */
     private void initList() {
-//        mNeighbours = mApiService.getNeighbours();
-//        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
+        mNeighbours = mApiService.getFavoriteNeighbours();
+        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
     }
 
 

@@ -3,6 +3,7 @@ package com.openclassrooms.entrevoisins.ui.neighbour_list;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +23,7 @@ import com.openclassrooms.entrevoisins.utils.ItemClickSupport;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.io.Serializable;
 import java.util.List;
 
 
@@ -34,6 +36,7 @@ public class NeighbourFragment extends Fragment {
 
     /**
      * Create and return a new instance
+     *
      * @return @{@link NeighbourFragment}
      */
     public static NeighbourFragment newInstance() {
@@ -86,7 +89,7 @@ public class NeighbourFragment extends Fragment {
         EventBus.getDefault().unregister(this);
     }
 
-    private void configureOnClickRecyclerView(){
+    private void configureOnClickRecyclerView() {
         ItemClickSupport.addTo(mRecyclerView, R.layout.fragment_neighbour_list)
                 .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
                     @Override
@@ -103,6 +106,12 @@ public class NeighbourFragment extends Fragment {
                         myIntent.putExtra("neighbour_detail_tv_address", address);
                         myIntent.putExtra("neighbour_detail_tv_phone", phone);
                         myIntent.putExtra("neighbour_detail_tv_aboutMe", aboutMe);
+
+                        //todo david
+                        Boolean favoriteBoolean = mNeighbours.get(position).getIsFavorite();
+                        myIntent.putExtra("favoriteStatus", favoriteBoolean);
+                        myIntent.putExtra("testpos", position);
+
                         startActivity(myIntent);
                     }
                 });
@@ -110,6 +119,7 @@ public class NeighbourFragment extends Fragment {
 
     /**
      * Fired if the user clicks on a delete button
+     *
      * @param event
      */
     @Subscribe
