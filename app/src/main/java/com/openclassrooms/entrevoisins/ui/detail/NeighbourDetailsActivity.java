@@ -1,4 +1,4 @@
-package com.openclassrooms.entrevoisins.ui.neighbour_list;
+package com.openclassrooms.entrevoisins.ui.detail;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,11 +21,6 @@ import android.widget.Toast;
 
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.databinding.NeighbourDetailActivityBinding;
-import com.openclassrooms.entrevoisins.di.DI;
-import com.openclassrooms.entrevoisins.model.Neighbour;
-import com.openclassrooms.entrevoisins.service.NeighbourApiService;
-
-import java.util.List;
 
 
 public class NeighbourDetailsActivity extends AppCompatActivity {

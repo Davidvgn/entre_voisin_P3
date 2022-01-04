@@ -16,7 +16,7 @@
 <!--            android:name=".ui.neighbour_list.FavoritesActivity"-->
 <!--            android:exported="false" />-->
         <activity
-            android:name=".ui.neighbour_list.NeighbourDetailsActivity"
+            android:name=".ui.detail.NeighbourDetailsActivity"
             android:exported="true"
             android:label="@string/activity_neighbour_details"
             android:theme="@style/AppTheme.neighbourDetails" />
