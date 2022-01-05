@@ -34,8 +34,8 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
     private boolean isFavorite;
     private SharedPreferences settings;
 
-     List<Neighbour> mNeighbours;
-     NeighbourApiService mApiService;
+    List<Neighbour> mNeighbours;
+    NeighbourApiService mApiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +45,8 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
 
 
 //        //todo david test
-//        this.settings = getPreferences(MODE_PRIVATE);
-//        this.isFavorite = settings.getBoolean("isFavorite", false);
+        this.settings = getPreferences(MODE_PRIVATE);
+        this.isFavorite = settings.getBoolean("isFavorite", false);
 
 
         binding = NeighbourDetailActivityBinding.inflate(getLayoutInflater());
@@ -77,7 +77,6 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
         toolBarLayout.setTitle(neighbourName);
 
 
-
         //todo david test
         Bundle bundle = getIntent().getExtras();
         boolean favoriteStatus = bundle.getBoolean("favoriteStatus");
@@ -90,13 +89,13 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
 
         FloatingActionButton fab = binding.neighbourDetailFabAddFavorite;
 
-//        if (isFavorite == false) {
-//            fab.setImageResource(R.drawable.ic_star_border_white_24dp);
-//
-//        } else {
-//            fab.setImageResource(R.drawable.ic_star_yellow_24dp);
-//
-//        }
+        if (mNeighbours.get(neighbourIndex).getIsFavorite() == false) {
+            fab.setImageResource(R.drawable.ic_star_border_white_24dp);
+
+        } else {
+            fab.setImageResource(R.drawable.ic_star_yellow_24dp);
+
+        }
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,11 +107,10 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
                     mNeighbours.get(neighbourIndex).setFavorite(true);
 
 
-                    Toast.makeText(NeighbourDetailsActivity.this, "favorite : "  + mNeighbours.get(neighbourIndex).getIsFavorite(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NeighbourDetailsActivity.this, "favorite : " + mNeighbours.get(neighbourIndex).getIsFavorite(), Toast.LENGTH_SHORT).show();
                 } else {
                     Snackbar.make(view, "Supprimé de vos favoris", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
-
                     mNeighbours.get(neighbourIndex).setFavorite(false);
 
                     Toast.makeText(NeighbourDetailsActivity.this, "index : " + mNeighbours.get(neighbourIndex).getIsFavorite(), Toast.LENGTH_SHORT).show();
@@ -139,15 +137,15 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-//    //todo david test
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
+    //todo david test
+    @Override
+    protected void onPause() {
+        super.onPause();
 
-//        SharedPreferences.Editor editor = this.settings.edit();
-//        editor.putBoolean("isFavorite", this.isFavorite);
-//        editor.commit();
-//    }
+            SharedPreferences.Editor editor = this.settings.edit();
+        editor.putBoolean("isFavorite", this.isFavorite);
+        editor.commit();
+    }
 //
 //    //todo david test
     @Override
@@ -156,7 +154,6 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
 
         SharedPreferences.Editor editor = this.settings.edit();
         editor.putBoolean("isFavorite", this.isFavorite);
-
         editor.commit();
     }
 }

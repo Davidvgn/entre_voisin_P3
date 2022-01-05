@@ -109,7 +109,6 @@ public class FavoritesFragment extends Fragment {
                         myIntent.putExtra("neighbour_detail_tv_phone", phone);
                         myIntent.putExtra("neighbour_detail_tv_aboutMe", aboutMe);
                         startActivity(myIntent);
-//                        Toast.makeText(getContext(), "You click user : "+ name, Toast.LENGTH_SHORT).show();
                     }
                 });
     }
