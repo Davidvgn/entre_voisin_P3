@@ -24,6 +24,7 @@ import com.openclassrooms.entrevoisins.utils.ItemClickSupport;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.io.Serializable;
 import java.util.List;
 
 
@@ -107,10 +108,10 @@ public class NeighbourFragment extends Fragment {
                         myIntent.putExtra("neighbour_detail_tv_phone", phone);
                         myIntent.putExtra("neighbour_detail_tv_aboutMe", aboutMe);
 
-                        //todo david
+                        //todo david test
                         Boolean favoriteBoolean = mNeighbours.get(position).getIsFavorite();
                         myIntent.putExtra("favoriteStatus", favoriteBoolean);
-                        myIntent.putExtra("testpos", position);
+                        myIntent.putExtra("neighbourIndex", position);
 
                         startActivity(myIntent);
                     }

@@ -21,20 +21,32 @@ import android.widget.Toast;
 
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.databinding.NeighbourDetailActivityBinding;
+import com.openclassrooms.entrevoisins.di.DI;
+import com.openclassrooms.entrevoisins.model.Neighbour;
+import com.openclassrooms.entrevoisins.service.NeighbourApiService;
+
+import java.util.List;
 
 
 public class NeighbourDetailsActivity extends AppCompatActivity {
 
     private NeighbourDetailActivityBinding binding;
-    private boolean isButtonClicked;
+    private boolean isFavorite;
     private SharedPreferences settings;
+
+     List<Neighbour> mNeighbours;
+     NeighbourApiService mApiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mApiService = DI.getNeighbourApiService();
+        mNeighbours = mApiService.getNeighbours();
 
+
+//        //todo david test
 //        this.settings = getPreferences(MODE_PRIVATE);
-//        this.isButtonClicked = settings.getBoolean("isButtonClicked", false);
+//        this.isFavorite = settings.getBoolean("isFavorite", false);
 
 
         binding = NeighbourDetailActivityBinding.inflate(getLayoutInflater());
@@ -64,10 +76,12 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
         String neighbourName = name;
         toolBarLayout.setTitle(neighbourName);
 
-        //todo david
+
+
+        //todo david test
         Bundle bundle = getIntent().getExtras();
         boolean favoriteStatus = bundle.getBoolean("favoriteStatus");
-        int testpos = bundle.getInt("testpos");
+        int neighbourIndex = bundle.getInt("neighbourIndex");
 
 
         setSupportActionBar(mToolbar);
@@ -76,7 +90,7 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
 
         FloatingActionButton fab = binding.neighbourDetailFabAddFavorite;
 
-//        if (isButtonClicked == false) {
+//        if (isFavorite == false) {
 //            fab.setImageResource(R.drawable.ic_star_border_white_24dp);
 //
 //        } else {
@@ -87,18 +101,27 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isButtonClicked == false) {
+
+                if (mNeighbours.get(neighbourIndex).getIsFavorite() == false) {
                     Snackbar.make(view, "Ajouté à vos favoris", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
+                    mNeighbours.get(neighbourIndex).setFavorite(true);
 
-                    Toast.makeText(NeighbourDetailsActivity.this, "Satut : " + favoriteStatus, Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(NeighbourDetailsActivity.this, "favorite : "  + mNeighbours.get(neighbourIndex).getIsFavorite(), Toast.LENGTH_SHORT).show();
                 } else {
                     Snackbar.make(view, "Supprimé de vos favoris", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
+
+                    mNeighbours.get(neighbourIndex).setFavorite(false);
+
+                    Toast.makeText(NeighbourDetailsActivity.this, "index : " + mNeighbours.get(neighbourIndex).getIsFavorite(), Toast.LENGTH_SHORT).show();
+
+
                 }
                 if (view.getId() == R.id.neighbour_detail_fab_add_favorite) {
-                    isButtonClicked = !isButtonClicked;
-                    fab.setImageResource(isButtonClicked ? R.drawable.ic_star_yellow_24dp : R.drawable.ic_star_border_white_24dp);
+                    isFavorite = !isFavorite;
+                    fab.setImageResource(isFavorite ? R.drawable.ic_star_yellow_24dp : R.drawable.ic_star_border_white_24dp);
                 }
             }
         });
@@ -116,13 +139,24 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
+//    //todo david test
 //    @Override
-//    protected void onStop() {
-//        super.onStop();
-//
+//    protected void onPause() {
+//        super.onPause();
+
 //        SharedPreferences.Editor editor = this.settings.edit();
-//        editor.putBoolean("isButtonClicked", this.isButtonClicked);
+//        editor.putBoolean("isFavorite", this.isFavorite);
 //        editor.commit();
 //    }
+//
+//    //todo david test
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        SharedPreferences.Editor editor = this.settings.edit();
+        editor.putBoolean("isFavorite", this.isFavorite);
+
+        editor.commit();
+    }
 }
