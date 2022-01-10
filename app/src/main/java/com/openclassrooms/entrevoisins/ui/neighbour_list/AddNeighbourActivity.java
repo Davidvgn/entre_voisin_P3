@@ -42,7 +42,7 @@ public class AddNeighbourActivity extends AppCompatActivity {
     @BindView(R.id.toolBar)
     Toolbar mToolBar;
 
-    private NeighbourRepository mApiService;
+    private NeighbourRepository mNeighbourRepository;
     private String mNeighbourImage;
 
     private boolean isFavorite = false;
@@ -55,7 +55,7 @@ public class AddNeighbourActivity extends AppCompatActivity {
         setSupportActionBar(mToolBar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mApiService = DI.getNeighbourRepository();
+        mNeighbourRepository = DI.getNeighbourRepository();
         init();
     }
 
@@ -98,7 +98,7 @@ public class AddNeighbourActivity extends AppCompatActivity {
                 aboutMeInput.getEditText().getText().toString(),
                 isFavorite
         );
-        mApiService.createNeighbour(neighbour);
+        mNeighbourRepository.createNeighbour(neighbour);
         finish();
     }
 

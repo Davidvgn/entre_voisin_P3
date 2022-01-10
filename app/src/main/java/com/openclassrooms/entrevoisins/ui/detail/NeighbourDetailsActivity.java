@@ -26,7 +26,6 @@ import com.openclassrooms.entrevoisins.service.NeighbourRepository;
 
 import java.util.List;
 
-
 public class NeighbourDetailsActivity extends AppCompatActivity {
 
     private NeighbourDetailActivityBinding binding;
@@ -49,22 +48,17 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Neighbour neighbour = mNeighbourRepository.getNeighbourById(neighbourId);
 
-        String avatar = intent.getStringExtra("neighbour_detail_iv_avatar");
-        String name = intent.getStringExtra("neighbour_detail_tv_name");
-        String address = intent.getStringExtra("neighbour_detail_tv_address");
-        String phone = intent.getStringExtra("neighbour_detail_tv_phone");
-        String aboutMe = intent.getStringExtra("neighbour_detail_tv_aboutMe");
 
-        Glide.with(this).asBitmap().load(avatar).into(binding.neighbourDetailIvAvatar);
+        Glide.with(this).asBitmap().load(neighbour.getAvatarUrl()).into(binding.neighbourDetailIvAvatar);
 
-        binding.neighbourDetailTvName.setText(name);
-        binding.neighbourDetailTvAddress.setText(address);
-        binding.neighbourDetailTvPhone.setText(phone);
-        binding.neighbourDetailTvAboutMe.setText(aboutMe);
+        binding.neighbourDetailTvName.setText(neighbour.getName());
+        binding.neighbourDetailTvAddress.setText(neighbour.getAddress());
+        binding.neighbourDetailTvPhone.setText(neighbour.getPhoneNumber());
+        binding.neighbourDetailTvAboutMe.setText(neighbour.getAboutMe());
         Toolbar mToolbar = binding.toolbar;
         CollapsingToolbarLayout toolBarLayout = binding.neighbourDetailCtl;
 
-        String neighbourName = name;
+        String neighbourName = neighbour.getName();
         toolBarLayout.setTitle(neighbourName);
 
         setSupportActionBar(mToolbar);
@@ -98,12 +92,15 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
                     neighbour.setFavorite(false);
 
                     Toast.makeText(NeighbourDetailsActivity.this, "favorite : " + neighbour.getIsFavorite(), Toast.LENGTH_SHORT).show();
-
-
                 }
+
                 if (view.getId() == R.id.neighbour_detail_fab_add_favorite) {
-                    isFavorite = !isFavorite;
-                    fab.setImageResource(isFavorite ? R.drawable.ic_star_yellow_24dp : R.drawable.ic_star_border_white_24dp);
+                    if (neighbour.getIsFavorite() == true) {
+                        fab.setImageResource(R.drawable.ic_star_yellow_24dp);
+                    } else {
+                        fab.setImageResource(R.drawable.ic_star_border_white_24dp);
+                    }
+                    ;
                 }
             }
         });
@@ -120,4 +117,5 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

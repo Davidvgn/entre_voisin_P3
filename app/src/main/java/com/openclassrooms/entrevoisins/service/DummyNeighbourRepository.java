@@ -4,6 +4,7 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 
 import java.util.ArrayList;
