@@ -29,7 +29,6 @@ import java.util.List;
 public class NeighbourDetailsActivity extends AppCompatActivity {
 
     private NeighbourDetailActivityBinding binding;
-//    private boolean isFavorite;
     NeighbourRepository mNeighbourRepository;
 
     @Override
@@ -41,11 +40,8 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         Bundle bundle = getIntent().getExtras();
-//        boolean favoriteStatus = bundle.getBoolean("favoriteStatus");
-//        int neighbourIndex = bundle.getInt("neighbourIndex");
         long neighbourId = bundle.getLong("neighbourId");
 
-//        Intent intent = getIntent();
         Neighbour neighbour = mNeighbourRepository.getNeighbourById(neighbourId);
 
         Glide.with(this).asBitmap().load(neighbour.getAvatarUrl()).into(binding.neighbourDetailIvAvatar);
