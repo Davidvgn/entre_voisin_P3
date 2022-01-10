@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Neighbour API client
  */
-public interface NeighbourApiService {
+public interface NeighbourRepository {
 
     /**
      * Get all my Neighbours
@@ -22,7 +22,9 @@ public interface NeighbourApiService {
      */
     List<Neighbour> getFavoriteNeighbours();
 
-    void toggleFavoriteNeighbour(Neighbour neighbour);
+    Neighbour getNeighbourById (long id);
+
+    void toggleFavoriteNeighbour(long neighbourId);
 
     /**
      * Deletes a neighbour

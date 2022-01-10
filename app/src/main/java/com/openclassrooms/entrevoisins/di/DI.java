@@ -1,28 +1,28 @@
 package com.openclassrooms.entrevoisins.di;
 
-import com.openclassrooms.entrevoisins.service.DummyNeighbourApiService;
-import com.openclassrooms.entrevoisins.service.NeighbourApiService;
+import com.openclassrooms.entrevoisins.service.DummyNeighbourRepository;
+import com.openclassrooms.entrevoisins.service.NeighbourRepository;
 
 /**
  * Dependency injector to get instance of services
  */
 public class DI {
 
-    private static NeighbourApiService service = new DummyNeighbourApiService();
+    private static NeighbourRepository service = new DummyNeighbourRepository();
 
     /**
-     * Get an instance on @{@link NeighbourApiService}
+     * Get an instance on @{@link NeighbourRepository}
      * @return
      */
-    public static NeighbourApiService getNeighbourApiService() {
+    public static NeighbourRepository getNeighbourRepository() {
         return service;
     }
 
     /**
-     * Get always a new instance on @{@link NeighbourApiService}. Useful for tests, so we ensure the context is clean.
+     * Get always a new instance on @{@link NeighbourRepository}. Useful for tests, so we ensure the context is clean.
      * @return
      */
-    public static NeighbourApiService getNewInstanceApiService() {
-        return new DummyNeighbourApiService();
+    public static NeighbourRepository getNewInstanceNeighbourRepository() {
+        return new DummyNeighbourRepository();
     }
 }

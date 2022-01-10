@@ -19,7 +19,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
-import com.openclassrooms.entrevoisins.service.NeighbourApiService;
+import com.openclassrooms.entrevoisins.service.NeighbourRepository;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,7 +42,7 @@ public class AddNeighbourActivity extends AppCompatActivity {
     @BindView(R.id.toolBar)
     Toolbar mToolBar;
 
-    private NeighbourApiService mApiService;
+    private NeighbourRepository mApiService;
     private String mNeighbourImage;
 
     private boolean isFavorite = false;
@@ -55,7 +55,7 @@ public class AddNeighbourActivity extends AppCompatActivity {
         setSupportActionBar(mToolBar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mApiService = DI.getNeighbourApiService();
+        mApiService = DI.getNeighbourRepository();
         init();
     }
 

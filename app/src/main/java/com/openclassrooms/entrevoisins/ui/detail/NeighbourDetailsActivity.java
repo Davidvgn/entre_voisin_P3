@@ -15,7 +15,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +22,7 @@ import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.databinding.NeighbourDetailActivityBinding;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
-import com.openclassrooms.entrevoisins.service.NeighbourApiService;
+import com.openclassrooms.entrevoisins.service.NeighbourRepository;
 
 import java.util.List;
 
@@ -32,56 +31,41 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
 
     private NeighbourDetailActivityBinding binding;
     private boolean isFavorite;
-    private SharedPreferences settings;
-
-    List<Neighbour> mNeighbours;
-    NeighbourApiService mApiService;
+    NeighbourRepository mNeighbourRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mApiService = DI.getNeighbourApiService();
-        mNeighbours = mApiService.getNeighbours();
-
-
-//        //todo david test
-        this.settings = getPreferences(MODE_PRIVATE);
-        this.isFavorite = settings.getBoolean("isFavorite", false);
-
+        mNeighbourRepository = DI.getNeighbourRepository();
 
         binding = NeighbourDetailActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        Bundle bundle = getIntent().getExtras();
+        boolean favoriteStatus = bundle.getBoolean("favoriteStatus");
+        int neighbourIndex = bundle.getInt("neighbourIndex");
+        long neighbourId = bundle.getLong("neighbourId");
+
         Intent intent = getIntent();
+        Neighbour neighbour = mNeighbourRepository.getNeighbourById(neighbourId);
+
         String avatar = intent.getStringExtra("neighbour_detail_iv_avatar");
         String name = intent.getStringExtra("neighbour_detail_tv_name");
         String address = intent.getStringExtra("neighbour_detail_tv_address");
         String phone = intent.getStringExtra("neighbour_detail_tv_phone");
         String aboutMe = intent.getStringExtra("neighbour_detail_tv_aboutMe");
 
-        ImageView mFavoriteAvatar = binding.neighbourDetailIvAvatar;
-        TextView mFavoriteName = binding.neighbourDetailTvName;
-        TextView mFavoriteAddress = binding.neighbourDetailTvAddress;
-        TextView mFavoritePhone = binding.neighbourDetailTvPhone;
-        TextView mFavoriteAboutMe = binding.neighbourDetailTvAboutMe;
+        Glide.with(this).asBitmap().load(avatar).into(binding.neighbourDetailIvAvatar);
+
+        binding.neighbourDetailTvName.setText(name);
+        binding.neighbourDetailTvAddress.setText(address);
+        binding.neighbourDetailTvPhone.setText(phone);
+        binding.neighbourDetailTvAboutMe.setText(aboutMe);
         Toolbar mToolbar = binding.toolbar;
         CollapsingToolbarLayout toolBarLayout = binding.neighbourDetailCtl;
-        Glide.with(this).asBitmap().load(avatar).into(mFavoriteAvatar);
-
-        mFavoriteName.setText(name);
-        mFavoriteAddress.setText(address);
-        mFavoritePhone.setText(phone);
-        mFavoriteAboutMe.setText(aboutMe);
 
         String neighbourName = name;
         toolBarLayout.setTitle(neighbourName);
-
-
-        //todo david test
-        Bundle bundle = getIntent().getExtras();
-        boolean favoriteStatus = bundle.getBoolean("favoriteStatus");
-        int neighbourIndex = bundle.getInt("neighbourIndex");
-
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(null);
@@ -89,7 +73,7 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
 
         FloatingActionButton fab = binding.neighbourDetailFabAddFavorite;
 
-        if (mNeighbours.get(neighbourIndex).getIsFavorite() == false) {
+        if (!neighbour.getIsFavorite()) { //todo david un seul neighbour chercher comment faire fonctionner
             fab.setImageResource(R.drawable.ic_star_border_white_24dp);
 
         } else {
@@ -101,19 +85,19 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (mNeighbours.get(neighbourIndex).getIsFavorite() == false) {
+                if (neighbour.getIsFavorite() == false) {
                     Snackbar.make(view, "Ajouté à vos favoris", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
-                    mNeighbours.get(neighbourIndex).setFavorite(true);
+                    neighbour.setFavorite(true); //todo david appeler le repo
 
 
-                    Toast.makeText(NeighbourDetailsActivity.this, "favorite : " + mNeighbours.get(neighbourIndex).getIsFavorite(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NeighbourDetailsActivity.this, "favorite : " + neighbour.getName(), Toast.LENGTH_SHORT).show();
                 } else {
                     Snackbar.make(view, "Supprimé de vos favoris", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
-                    mNeighbours.get(neighbourIndex).setFavorite(false);
+                    neighbour.setFavorite(false);
 
-                    Toast.makeText(NeighbourDetailsActivity.this, "index : " + mNeighbours.get(neighbourIndex).getIsFavorite(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NeighbourDetailsActivity.this, "favorite : " + neighbour.getIsFavorite(), Toast.LENGTH_SHORT).show();
 
 
                 }
@@ -135,25 +119,5 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
             }
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    //todo david test
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-            SharedPreferences.Editor editor = this.settings.edit();
-        editor.putBoolean("isFavorite", this.isFavorite);
-        editor.commit();
-    }
-//
-//    //todo david test
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        SharedPreferences.Editor editor = this.settings.edit();
-        editor.putBoolean("isFavorite", this.isFavorite);
-        editor.commit();
     }
 }
