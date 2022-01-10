@@ -19,7 +19,6 @@ public class DummyNeighbourRepository implements NeighbourRepository {
     private List<Neighbour> neighbours = DummyNeighbourGenerator.generateNeighbours();
     Neighbour mNeighbour;
 
-
     /**
      * {@inheritDoc}
      */
@@ -36,7 +35,6 @@ public class DummyNeighbourRepository implements NeighbourRepository {
         return favoriteNeighbours;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public Neighbour getNeighbourById(long id) {
         for (Neighbour neighbour : neighbours) {
@@ -49,7 +47,13 @@ public class DummyNeighbourRepository implements NeighbourRepository {
 
 
     @Override
-    public void toggleFavoriteNeighbour(long neighbour) {
+    public void toggleFavoriteNeighbour(long neighbourId) {
+        mNeighbour.getIsFavorite();
+        if (mNeighbour.getIsFavorite() == false) {
+            mNeighbour.setFavorite(true);
+        }else {
+            mNeighbour.setFavorite(false);
+        }
     }
 
     /**

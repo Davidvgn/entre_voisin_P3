@@ -22,8 +22,16 @@ public interface NeighbourRepository {
      */
     List<Neighbour> getFavoriteNeighbours();
 
+    /**
+     * Get a neighbour by Id
+     * @param id
+     */
     Neighbour getNeighbourById (long id);
 
+    /**
+     * Change favorite state of the neighbour
+     * @param neighbourId
+     */
     void toggleFavoriteNeighbour(long neighbourId);
 
     /**

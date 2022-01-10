@@ -29,7 +29,7 @@ import java.util.List;
 public class NeighbourDetailsActivity extends AppCompatActivity {
 
     private NeighbourDetailActivityBinding binding;
-    private boolean isFavorite;
+//    private boolean isFavorite;
     NeighbourRepository mNeighbourRepository;
 
     @Override
@@ -41,13 +41,12 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         Bundle bundle = getIntent().getExtras();
-        boolean favoriteStatus = bundle.getBoolean("favoriteStatus");
-        int neighbourIndex = bundle.getInt("neighbourIndex");
+//        boolean favoriteStatus = bundle.getBoolean("favoriteStatus");
+//        int neighbourIndex = bundle.getInt("neighbourIndex");
         long neighbourId = bundle.getLong("neighbourId");
 
-        Intent intent = getIntent();
+//        Intent intent = getIntent();
         Neighbour neighbour = mNeighbourRepository.getNeighbourById(neighbourId);
-
 
         Glide.with(this).asBitmap().load(neighbour.getAvatarUrl()).into(binding.neighbourDetailIvAvatar);
 
@@ -67,7 +66,8 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
 
         FloatingActionButton fab = binding.neighbourDetailFabAddFavorite;
 
-        if (!neighbour.getIsFavorite()) { //todo david un seul neighbour chercher comment faire fonctionner
+        //todo Nino il y aurait-il un intérêt de mettre cette condition dans une méthode ?
+        if (!neighbour.getIsFavorite()) {
             fab.setImageResource(R.drawable.ic_star_border_white_24dp);
 
         } else {
@@ -78,20 +78,15 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mNeighbourRepository.toggleFavoriteNeighbour(neighbourId);
 
-                if (neighbour.getIsFavorite() == false) {
-                    Snackbar.make(view, "Ajouté à vos favoris", Snackbar.LENGTH_LONG)
+                if (neighbour.getIsFavorite() == true) {
+                    Snackbar.make(view, "Ajouté(e) à vos favoris", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
-                    neighbour.setFavorite(true); //todo david appeler le repo
-
-
-                    Toast.makeText(NeighbourDetailsActivity.this, "favorite : " + neighbour.getName(), Toast.LENGTH_SHORT).show();
                 } else {
-                    Snackbar.make(view, "Supprimé de vos favoris", Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, "Supprimé(e) de vos favoris", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
-                    neighbour.setFavorite(false);
 
-                    Toast.makeText(NeighbourDetailsActivity.this, "favorite : " + neighbour.getIsFavorite(), Toast.LENGTH_SHORT).show();
                 }
 
                 if (view.getId() == R.id.neighbour_detail_fab_add_favorite) {
@@ -117,5 +112,7 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 
 }
