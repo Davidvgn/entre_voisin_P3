@@ -10,9 +10,12 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Unit test on Neighbour service
@@ -40,4 +43,25 @@ public class NeighbourServiceTest {
         service.deleteNeighbour(neighbourToDelete);
         assertFalse(service.getNeighbours().contains(neighbourToDelete));
     }
+
+    //todo Nino dois je rentrer des infos dans la création du neighbour ? Puis-je mettre qu'un seul caractère ?
+    @Test
+    public void addNeighbourWithSuccess() {
+        service.getNeighbours().clear();
+        Neighbour addedNeighbour = new Neighbour(1, "Caroline", "https://i.pravatar.cc/150?u=a042581f4e29026704d", "Saint-Pierre-du-Mont ; 5km",
+                "+33 6 86 57 90 14", "Bonjour !", false);
+        service.createNeighbour(addedNeighbour);
+        assertTrue(service.getNeighbours().contains(addedNeighbour));
+    }
+
+    @Test
+    public void setFavorite(){
+       Neighbour neighbour = service.getNeighbourById(1);
+       neighbour.setFavorite(false);
+       assertTrue(neighbour.getIsFavorite() == false);
+       neighbour.setFavorite(true);
+       assertTrue(neighbour.getIsFavorite()==true);
+
+    }
+
 }
