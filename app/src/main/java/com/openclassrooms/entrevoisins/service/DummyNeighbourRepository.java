@@ -16,8 +16,7 @@ import java.util.stream.Collectors;
  */
 public class DummyNeighbourRepository implements NeighbourRepository {
 
-    private List<Neighbour> neighbours = DummyNeighbourGenerator.generateNeighbours();
-    Neighbour mNeighbour;
+    private final List<Neighbour> neighbours = DummyNeighbourGenerator.generateNeighbours();
 
     /**
      * {@inheritDoc}
@@ -37,23 +36,23 @@ public class DummyNeighbourRepository implements NeighbourRepository {
 
     @Override
     public Neighbour getNeighbourById(long id) {
-        for (Neighbour neighbour : neighbours) {
-            if (neighbour.getId() == id) {
-                mNeighbour = neighbour;
+        Neighbour neighbour = null;
+
+        for (Neighbour item : neighbours) {
+            if (item.getId() == id) {
+                neighbour = item;
+                break;
             }
         }
-        return mNeighbour;
+
+        return neighbour;
     }
 
 
     @Override
     public void toggleFavoriteNeighbour(long neighbourId) {
-        mNeighbour.getIsFavorite();
-        if (mNeighbour.getIsFavorite() == false) {
-            mNeighbour.setFavorite(true);
-        }else {
-            mNeighbour.setFavorite(false);
-        }
+        Neighbour currentNeighbour = getNeighbourById(neighbourId);
+        currentNeighbour.setFavorite(!currentNeighbour.getIsFavorite());
     }
 
     /**

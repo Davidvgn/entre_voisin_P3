@@ -44,7 +44,6 @@ public class NeighbourServiceTest {
         assertFalse(service.getNeighbours().contains(neighbourToDelete));
     }
 
-    //todo Nino dois je rentrer des infos dans la création du neighbour ? Puis-je mettre qu'un seul caractère ?
     @Test
     public void addNeighbourWithSuccess() {
         service.getNeighbours().clear();
@@ -55,13 +54,16 @@ public class NeighbourServiceTest {
     }
 
     @Test
-    public void setFavorite(){
+    public void default_neighbourIsNotFavorite(){
        Neighbour neighbour = service.getNeighbourById(1);
-       neighbour.setFavorite(false);
-       assertTrue(neighbour.getIsFavorite() == false);
-       neighbour.setFavorite(true);
-       assertTrue(neighbour.getIsFavorite()==true);
+       assertFalse(neighbour.getIsFavorite());
+    }
 
+    @Test
+    public void shouldBeFavoriteIfSetFavorite(){
+        Neighbour neighbour = service.getNeighbourById(1);
+        neighbour.setFavorite(true);
+        assertTrue(neighbour.getIsFavorite());
     }
 
 }

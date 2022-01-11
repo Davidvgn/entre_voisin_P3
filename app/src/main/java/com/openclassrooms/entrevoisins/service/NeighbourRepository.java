@@ -29,8 +29,7 @@ public interface NeighbourRepository {
     Neighbour getNeighbourById (long id);
 
     /**
-     * Change favorite state of the neighbour
-     * @param neighbourId
+     * Toggle favorite state of the neighbour depending of its id
      */
     void toggleFavoriteNeighbour(long neighbourId);
 

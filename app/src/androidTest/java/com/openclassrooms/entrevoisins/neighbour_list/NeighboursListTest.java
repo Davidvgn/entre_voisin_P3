@@ -1,6 +1,7 @@
 
 package com.openclassrooms.entrevoisins.neighbour_list;
 import androidx.test.core.app.ActivityScenario;
+import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
@@ -23,6 +24,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.assertThat;
 import static androidx.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static com.openclassrooms.entrevoisins.utils.RecyclerViewItemCountAssertion.withItemCount;
 import static org.hamcrest.Matchers.allOf;
@@ -45,8 +47,7 @@ public class NeighboursListTest {
     private ListNeighbourActivity mActivity;
 
     @Rule
-    public ActivityTestRule<ListNeighbourActivity> mActivityRule =
-            new ActivityTestRule(ListNeighbourActivity.class);
+    public ActivityTestRule<ListNeighbourActivity> mActivityRule = new ActivityTestRule(ListNeighbourActivity.class);
 
     @Before
     public void setUp() {
@@ -81,8 +82,9 @@ public class NeighboursListTest {
 
     @Test
     public void launch_NeighbourDetailsActivity() {
-        onView(allOf(withId(R.id.neighbourDetailLayout), isDisplayed())).perform(click());
-
+        onView(allOf(withId(R.id.list_neighbours), isDisplayed()))
+            .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
+        onView(allOf(withId(R.id.neighbour_detail_tv_name), isDisplayed())).check(matches(withText("Jack")));
     }
 
 
