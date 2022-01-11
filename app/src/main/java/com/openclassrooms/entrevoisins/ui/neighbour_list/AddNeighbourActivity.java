@@ -27,7 +27,6 @@ import butterknife.OnClick;
 
 public class AddNeighbourActivity extends AppCompatActivity {
 
-    //todo Nino Dois-je refacto et utiliser bindingView pour une cohérence dans le code ?
     @BindView(R.id.avatar)
     ImageView avatar;
     @BindView(R.id.nameLyt)
