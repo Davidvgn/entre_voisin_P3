@@ -124,7 +124,7 @@ public class NeighboursListTest {
     }
 
     @Test
-    public void only_favorite_in_FavoritesFragment() throws InterruptedException {
+    public void only_favorite_in_FavoritesFragment() {
 
         //Swipe to FavoritesFragment
         onView(allOf(withId(R.id.list_neighbours), isDisplayed()))
