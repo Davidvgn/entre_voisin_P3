@@ -6,10 +6,14 @@ Elle se présente sous forme 2 deux onglets avec une liste de voisins, et un onl
 
 Ci-après les fonctionnalités présentes dans l’application Entrevoisins :
 
-● lister mes voisins ;
-● ajouter un voisin ;
-● suppression d’un voisin;
-● ajout d’un voisin en favoris;
+● lister mes voisins
+
+● ajouter un voisin 
+
+● suppression d’un voisin
+
+● ajout d’un voisin en favoris
+
 ● afficher les détails d'un voisin : 
   - Avatar, 
   - Nom, 
