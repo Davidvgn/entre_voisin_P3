@@ -1,7 +1,9 @@
 package com.openclassrooms.entrevoisins.service;
 
 import com.openclassrooms.entrevoisins.di.DI;
+import com.openclassrooms.entrevoisins.events.NeighbourClickedEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
+import com.openclassrooms.entrevoisins.ui.neighbour_list.ListNeighbourActivity;
 
 import org.hamcrest.collection.IsIterableContainingInAnyOrder;
 import org.junit.Before;
@@ -10,8 +12,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.util.List;
-import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
@@ -55,7 +55,7 @@ public class NeighbourServiceTest {
 
     @Test
     public void default_neighbourIsNotFavorite(){
-       Neighbour neighbour = service.getNeighbourById(1);
+       Neighbour neighbour = service.getNeighbourById(4);
        assertFalse(neighbour.getIsFavorite());
     }
 
@@ -64,6 +64,33 @@ public class NeighbourServiceTest {
         Neighbour neighbour = service.getNeighbourById(1);
         neighbour.setFavorite(true);
         assertTrue(neighbour.getIsFavorite());
+    }
+
+    @Test
+    public void shouldChangeNeighbourStatus(){
+        Neighbour neighbour = service.getNeighbourById(3);
+        service.toggleFavoriteNeighbour(neighbour.getId());
+        assertTrue(neighbour.getIsFavorite());
+        service.toggleFavoriteNeighbour(neighbour.getId());
+        assertTrue(!neighbour.getIsFavorite());
+
+    }
+
+    @Test
+    public void shouldGetNeighbourById(){
+        int id = 1;
+        Neighbour neigh = service.getNeighbourById(id);
+        assertTrue(neigh.getName() == "Caroline");
+    }
+
+    @Test
+    public void favoritesOnly(){
+        List<Neighbour> neighbours = service.getFavoriteNeighbours();
+        assertTrue(neighbours.isEmpty());
+        Neighbour neighbour = service.getNeighbourById(1);
+        neighbour.setFavorite(true);
+        List<Neighbour> favoritesList = service.getFavoriteNeighbours();
+        assertTrue(!favoritesList.isEmpty());
     }
 
 }

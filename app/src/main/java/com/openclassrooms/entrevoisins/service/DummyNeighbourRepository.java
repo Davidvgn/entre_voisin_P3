@@ -37,14 +37,12 @@ public class DummyNeighbourRepository implements NeighbourRepository {
     @Override
     public Neighbour getNeighbourById(long id) {
         Neighbour neighbour = null;
-
         for (Neighbour item : neighbours) {
             if (item.getId() == id) {
                 neighbour = item;
                 break;
             }
         }
-
         return neighbour;
     }
 
