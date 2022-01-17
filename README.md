@@ -28,7 +28,3 @@ Ci-après les fonctionnalités présentes dans l’application Entrevoisins :
   - Réseaux sociaux,
   - À propos de moi,
   - Un bouton d’ajout du voisin à la liste de favoris.
-
-
-
-t contient une mini-application pour le P3 du parcours **Grande École du Numérique**.
