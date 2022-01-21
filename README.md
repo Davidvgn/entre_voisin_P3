@@ -28,3 +28,7 @@ Ci-après les fonctionnalités présentes dans l’application Entrevoisins :
   - Réseaux sociaux,
   - À propos de moi,
   - Un bouton d’ajout du voisin à la liste de favoris.
+
+
+# Exécuter l'application :
+    Pour exécuter l'application, télécharger le code dans androidStudio et cliquer sur le bouton 'Run'.

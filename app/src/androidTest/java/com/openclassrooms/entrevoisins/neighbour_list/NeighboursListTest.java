@@ -1,23 +1,20 @@
 
 package com.openclassrooms.entrevoisins.neighbour_list;
 
+import androidx.test.espresso.Espresso;
 import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.ui.neighbour_list.ListNeighbourActivity;
 import com.openclassrooms.entrevoisins.utils.DeleteViewAction;
-
 import org.hamcrest.Matcher;
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.swipeLeft;
@@ -27,7 +24,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.assertThat;
 import static androidx.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
-import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static com.openclassrooms.entrevoisins.utils.RecyclerViewItemCountAssertion.withItemCount;
@@ -105,12 +101,10 @@ public class NeighboursListTest {
     }
 
     @Test
-    //withText set on 'Chloé'; if myNeighboursList_deleteAction_shouldRemoveItem test is not used,
-    // set text on 'Jack'
     public void launch_NeighbourDetailsActivity() {
         onView(allOf(withId(R.id.list_neighbours), isDisplayed()))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
-        onView(allOf(withId(R.id.neighbour_detail_tv_name), isDisplayed())).check(matches(withText("Chloé")));
+        onView(allOf(withId(R.id.neighbour_detail_tv_name), isDisplayed())).check(matches(withText("Jack")));
 
     }
 
@@ -145,8 +139,7 @@ public class NeighboursListTest {
         onView(allOf(withId(R.id.neighbour_detail_fab_add_favorite)))
                 .perform((click()));
         //Click on 'goBack' button
-        onView(Matchers.allOf(withContentDescription("Navigate up"), isDisplayed()))
-                .perform(click());
+        Espresso.pressBack();
 
         //Click on second Item
         onView(allOf(withId(R.id.list_neighbours), isDisplayed()))
@@ -156,8 +149,8 @@ public class NeighboursListTest {
                 .perform((click()));
 
         //Click on 'goBack' button
-        onView(Matchers.allOf(withContentDescription("Navigate up"), isDisplayed()))
-                .perform(click());
+        Espresso.pressBack();
+
 
         //Swipe to FavoritesFragment
         onView(allOf(withId(R.id.list_neighbours), isDisplayed()))
@@ -174,15 +167,12 @@ public class NeighboursListTest {
         onView(allOf(withId(R.id.neighbour_detail_tv_name), isDisplayed())).check(matches(withText("Caroline")));
 
         //Go back button
-        onView(Matchers.allOf(withContentDescription("Navigate up"), isDisplayed()))
-                .perform(click());
+        Espresso.pressBack();
 
         //Check if the Second item is the one we made favorite
         onView(allOf(withId(R.id.list_neighbours), isDisplayed()))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
-        //withText set on 'Chloé'; if myNeighboursList_deleteAction_shouldRemoveItem test is not used,
-        // set text on 'Jack'
-        onView(allOf(withId(R.id.neighbour_detail_tv_name), isDisplayed())).check(matches(withText("Chloé")));
+        onView(allOf(withId(R.id.neighbour_detail_tv_name), isDisplayed())).check(matches(withText("Jack")));
 
 
     }

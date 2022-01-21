@@ -1,18 +1,14 @@
 package com.openclassrooms.entrevoisins.service;
 
 import com.openclassrooms.entrevoisins.di.DI;
-import com.openclassrooms.entrevoisins.events.NeighbourClickedEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
-import com.openclassrooms.entrevoisins.ui.neighbour_list.ListNeighbourActivity;
-
 import org.hamcrest.collection.IsIterableContainingInAnyOrder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-
 import java.util.List;
-
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -63,6 +59,14 @@ public class NeighbourServiceTest {
     public void shouldBeFavoriteIfSetFavorite(){
         Neighbour neighbour = service.getNeighbourById(1);
         neighbour.setFavorite(true);
+        Neighbour sameNeighbour = service.getNeighbourById(1);
+        assertTrue(sameNeighbour.getIsFavorite());
+    }
+
+    @Test
+    public void shouldStillBeFavoriteIfSetFavorite(){
+        Neighbour neighbour = service.getNeighbourById(1);
+        neighbour.setFavorite(true);
         assertTrue(neighbour.getIsFavorite());
     }
 
@@ -72,15 +76,15 @@ public class NeighbourServiceTest {
         service.toggleFavoriteNeighbour(neighbour.getId());
         assertTrue(neighbour.getIsFavorite());
         service.toggleFavoriteNeighbour(neighbour.getId());
-        assertTrue(!neighbour.getIsFavorite());
+        assertFalse(neighbour.getIsFavorite());
 
     }
 
     @Test
     public void shouldGetNeighbourById(){
         int id = 1;
-        Neighbour neigh = service.getNeighbourById(id);
-        assertTrue(neigh.getName() == "Caroline");
+        Neighbour neighbour = service.getNeighbourById(id);
+        assertEquals("Caroline", neighbour.getName());
     }
 
     @Test
@@ -90,7 +94,7 @@ public class NeighbourServiceTest {
         Neighbour neighbour = service.getNeighbourById(1);
         neighbour.setFavorite(true);
         List<Neighbour> favoritesList = service.getFavoriteNeighbours();
-        assertTrue(!favoritesList.isEmpty());
+        assertFalse(favoritesList.isEmpty());
     }
 
 }
