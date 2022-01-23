@@ -2,15 +2,13 @@
 package com.openclassrooms.entrevoisins.neighbour_list;
 
 import androidx.test.espresso.Espresso;
-import androidx.test.espresso.UiController;
-import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.ui.neighbour_list.ListNeighbourActivity;
 import com.openclassrooms.entrevoisins.utils.DeleteViewAction;
-import org.hamcrest.Matcher;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -27,11 +25,10 @@ import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static com.openclassrooms.entrevoisins.utils.RecyclerViewItemCountAssertion.withItemCount;
+import static com.openclassrooms.entrevoisins.utils.Waiter.waitFor;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.core.IsNot.not;
 import static org.hamcrest.core.IsNull.notNullValue;
-
-import android.view.View;
 
 /**
  * Test class for list of neighbours
@@ -46,26 +43,6 @@ public class NeighboursListTest {
 
     @Rule
     public ActivityTestRule<ListNeighbourActivity> mActivityRule = new ActivityTestRule(ListNeighbourActivity.class);
-
-    //Fragments needs time to load data
-    public static ViewAction waitFor(long delay) {
-        return new ViewAction() {
-            @Override
-            public Matcher<View> getConstraints() {
-                return isRoot();
-            }
-
-            @Override
-            public String getDescription() {
-                return "wait for " + delay + "milliseconds";
-            }
-
-            @Override
-            public void perform(UiController uiController, View view) {
-                uiController.loopMainThreadForAtLeast(delay);
-            }
-        };
-    }
 
     @Before
     public void setUp() {
