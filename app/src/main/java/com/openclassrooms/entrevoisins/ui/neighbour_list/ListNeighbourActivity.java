@@ -63,23 +63,10 @@ public class ListNeighbourActivity extends AppCompatActivity {
 
     @Subscribe
     public void onNeighbourClicked(NeighbourClickedEvent event) {
-        String avatar = event.neighbour.getAvatarUrl();
-        String name = event.neighbour.getName();
-        String address = event.neighbour.getAddress();
-        String phone = event.neighbour.getPhoneNumber();
-        String aboutMe = event.neighbour.getAboutMe();
         Long id = event.neighbour.getId();
 
         Intent myIntent = new Intent(this, NeighbourDetailsActivity.class);
-        myIntent.putExtra("neighbour_detail_iv_avatar", avatar);
-        myIntent.putExtra("neighbour_detail_tv_name", name);
-        myIntent.putExtra("neighbour_detail_tv_address", address);
-        myIntent.putExtra("neighbour_detail_tv_phone", phone);
-        myIntent.putExtra("neighbour_detail_tv_aboutMe", aboutMe);
         myIntent.putExtra("neighbourId", id);
-
-        Boolean favoriteBoolean = event.neighbour.getIsFavorite();
-        myIntent.putExtra("favoriteStatus", favoriteBoolean);
 
         startActivity(myIntent);
     }

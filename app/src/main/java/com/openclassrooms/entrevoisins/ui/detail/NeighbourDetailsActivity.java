@@ -37,10 +37,12 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
 
         Glide.with(this).asBitmap().load(neighbour.getAvatarUrl()).into(binding.neighbourDetailIvAvatar);
 
+        String fakeNetwork = "www.facebook.com/" + neighbour.getName();
         binding.neighbourDetailTvName.setText(neighbour.getName());
         binding.neighbourDetailTvAddress.setText(neighbour.getAddress());
         binding.neighbourDetailTvPhone.setText(neighbour.getPhoneNumber());
         binding.neighbourDetailTvAboutMe.setText(neighbour.getAboutMe());
+        binding.neighbourDetailTvNetwork.setText(fakeNetwork);
         Toolbar mToolbar = binding.toolbar;
         CollapsingToolbarLayout toolBarLayout = binding.neighbourDetailCtl;
 

@@ -55,19 +55,21 @@ public class NeighbourServiceTest {
        assertFalse(neighbour.getIsFavorite());
     }
 
+
+
     @Test
     public void shouldBeFavoriteIfSetFavorite(){
         Neighbour neighbour = service.getNeighbourById(1);
         neighbour.setFavorite(true);
-        Neighbour sameNeighbour = service.getNeighbourById(1);
-        assertTrue(sameNeighbour.getIsFavorite());
+        assertTrue(neighbour.getIsFavorite());
     }
 
     @Test
     public void shouldStillBeFavoriteIfSetFavorite(){
         Neighbour neighbour = service.getNeighbourById(1);
         neighbour.setFavorite(true);
-        assertTrue(neighbour.getIsFavorite());
+        Neighbour sameNeighbour = service.getNeighbourById(1);
+        assertTrue(sameNeighbour.getIsFavorite());
     }
 
     @Test

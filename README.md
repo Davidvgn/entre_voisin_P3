@@ -2,7 +2,7 @@
 
 # Requirements
 
-Minimum Android SDK version - 21
+Minimum Android SDK version - 24
 
 # Description :
 
