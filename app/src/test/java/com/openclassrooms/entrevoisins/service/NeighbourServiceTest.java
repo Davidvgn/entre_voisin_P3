@@ -3,6 +3,7 @@ package com.openclassrooms.entrevoisins.service;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import org.hamcrest.collection.IsIterableContainingInAnyOrder;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,7 +12,10 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
+
+
 
 /**
  * Unit test on Neighbour service
@@ -59,27 +63,27 @@ public class NeighbourServiceTest {
 
     @Test
     public void shouldBeFavoriteIfSetFavorite(){
-        Neighbour neighbour = service.getNeighbourById(1);
-        neighbour.setFavorite(true);
-        assertTrue(neighbour.getIsFavorite());
+        Neighbour neighbour = service.getNeighbourById(6);
+        service.toggleFavoriteNeighbour(neighbour.getId());
+        List<Neighbour> neighbours = service.getFavoriteNeighbours();
+        assertTrue(neighbours.contains(neighbour));
     }
 
     @Test
     public void shouldStillBeFavoriteIfSetFavorite(){
-        Neighbour neighbour = service.getNeighbourById(1);
-        neighbour.setFavorite(true);
-        Neighbour sameNeighbour = service.getNeighbourById(1);
-        assertTrue(sameNeighbour.getIsFavorite());
+        Neighbour neighbour = service.getNeighbourById(9);
+        service.toggleFavoriteNeighbour(neighbour.getId());
+        Neighbour sameNeighbour = service.getNeighbourById(9);
+        List<Neighbour> neighbours = service.getFavoriteNeighbours();
+        assertTrue(neighbours.contains(sameNeighbour));
     }
 
     @Test
     public void shouldChangeNeighbourStatus(){
         Neighbour neighbour = service.getNeighbourById(3);
         service.toggleFavoriteNeighbour(neighbour.getId());
-        assertTrue(neighbour.getIsFavorite());
-        service.toggleFavoriteNeighbour(neighbour.getId());
-        assertFalse(neighbour.getIsFavorite());
-
+        List<Neighbour> neighbours = service.getFavoriteNeighbours();
+        assertTrue(neighbours.contains(neighbour));
     }
 
     @Test
@@ -91,12 +95,14 @@ public class NeighbourServiceTest {
 
     @Test
     public void favoritesOnly(){
-        List<Neighbour> neighbours = service.getFavoriteNeighbours();
-        assertTrue(neighbours.isEmpty());
         Neighbour neighbour = service.getNeighbourById(1);
-        neighbour.setFavorite(true);
-        List<Neighbour> favoritesList = service.getFavoriteNeighbours();
-        assertFalse(favoritesList.isEmpty());
+        service.toggleFavoriteNeighbour(neighbour.getId());
+        Neighbour neighbour2 = service.getNeighbourById(2);
+        service.toggleFavoriteNeighbour(neighbour2.getId());
+        List<Neighbour> neighbours = service.getFavoriteNeighbours();
+        for (Neighbour item : neighbours){
+            assertTrue(item == (neighbour)|| item == (neighbour2));
+        }
     }
 
 }

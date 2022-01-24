@@ -118,39 +118,13 @@ public class NeighboursListTest {
         //Click on 'goBack' button
         Espresso.pressBack();
 
-        //Click on second Item
-        onView(allOf(withId(R.id.list_neighbours), isDisplayed()))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
-        //Click on FloatingActionButton
-        onView(allOf(withId(R.id.neighbour_detail_fab_add_favorite)))
-                .perform((click()));
-
-        //Click on 'goBack' button
-        Espresso.pressBack();
-
-
         //Swipe to FavoritesFragment
         onView(allOf(withId(R.id.list_neighbours), isDisplayed()))
                 .perform((swipeLeft()));
 
         onView(isRoot()).perform(waitFor(1000));
 
-        //Check if the Itemlist only show 2 items (number of items put on favorite).
-        onView(allOf(withId(R.id.list_neighbours), isDisplayed())).check(withItemCount(ITEMS_COUNT - 10));
-
-        //Check if the First item is the one we made favorite
-        onView(allOf(withId(R.id.list_neighbours), isDisplayed()))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-        onView(allOf(withId(R.id.neighbour_detail_tv_name), isDisplayed())).check(matches(withText("Caroline")));
-
-        //Go back button
-        Espresso.pressBack();
-
-        //Check if the Second item is the one we made favorite
-        onView(allOf(withId(R.id.list_neighbours), isDisplayed()))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
-        onView(allOf(withId(R.id.neighbour_detail_tv_name), isDisplayed())).check(matches(withText("Jack")));
-
-
+        //Check if an item is added in the Itemlist
+        onView(allOf(withId(R.id.list_neighbours), isDisplayed())).check(withItemCount(1));
     }
 }
