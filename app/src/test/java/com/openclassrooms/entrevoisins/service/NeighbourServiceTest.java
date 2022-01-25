@@ -3,7 +3,6 @@ package com.openclassrooms.entrevoisins.service;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import org.hamcrest.collection.IsIterableContainingInAnyOrder;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,9 +10,9 @@ import org.junit.runners.JUnit4;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertThrows;
+//import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static com.google.common.truth.Truth.assertThat;
 
 
 
@@ -34,7 +33,7 @@ public class NeighbourServiceTest {
     public void getNeighboursWithSuccess() {
         List<Neighbour> neighbours = service.getNeighbours();
         List<Neighbour> expectedNeighbours = DummyNeighbourGenerator.DUMMY_NEIGHBOURS;
-        assertThat(neighbours, IsIterableContainingInAnyOrder.containsInAnyOrder(expectedNeighbours.toArray()));
+        assertThat(neighbours).containsExactlyElementsIn(expectedNeighbours);
     }
 
     @Test
@@ -100,9 +99,12 @@ public class NeighbourServiceTest {
         Neighbour neighbour2 = service.getNeighbourById(2);
         service.toggleFavoriteNeighbour(neighbour2.getId());
         List<Neighbour> neighbours = service.getFavoriteNeighbours();
-        for (Neighbour item : neighbours){
-            assertTrue(item == (neighbour)|| item == (neighbour2));
-        }
+        assertThat(neighbours).containsExactly(
+                neighbour,
+                neighbour2
+        );
+
+
     }
 
 }
